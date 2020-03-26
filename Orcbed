@@ -1,0 +1,34 @@
+--OrcBed name
+local stonebed = orc.orcname .. "bed"
+
+--Charcter coords
+local charCoords = "36.0," ..  --X
+                   "178.6," ..  --Y
+                   "114.8"  ..  --Z
+
+--Coordinates
+
+local xcord = 35.99733
+local ycord = 178.5631
+local zcord = 114.8054
+local xyzcord = xcord .. "," .. ycord .. "," .. zcord
+
+--Rotation
+local xrot = 3.020714E-05
+local yrot = 247.1248
+local zrot = -0.001249138
+local xyzrot = xrot .. "," .. yrot .. "," .. zrot
+
+
+function spawnBed() 
+    orc.consolecommand("asset World/Props/Prefabs/StoneCircleLite")
+    orc.consolecommand("batch assetnameset " .. stonebed ..";asset " .. stonebed)
+    orc.consolecommand("assetpos " .. xyzcord .. "," .. xyzrot .. ",false")
+end
+
+function removeBed()
+    --Removes the spawned bed, and send the player and NPC to a previous location.
+    orc.consolecommand("assetclear " .. stonebed)
+    orc.consolecommand("batch target @self;chrpos ".. charCoords .. ";targetclear")
+    orc.consolecommand("batch target @playername;chrpos ".. charCoords .. ";nudgebwd;nudgebwd;targetclear")
+end
